@@ -2,7 +2,11 @@
 
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
-import { ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "../ui/resizable";
 import { Editor, OnMount } from "@monaco-editor/react";
 import { useRef } from "react";
 import monaco from "monaco-editor";
@@ -17,6 +21,7 @@ export default function CodeEditor() {
     <>
       <div className="h-full w-52"></div>
       <ResizablePanelGroup direction="horizontal">
+        {/* code section */}
         <ResizablePanel
           maxSize={75}
           minSize={30}
@@ -51,6 +56,47 @@ export default function CodeEditor() {
               onMount={handleEditorMound}
             />
           </div>
+        </ResizablePanel>
+        <ResizableHandle />
+        {/* preview section */}
+        <ResizablePanel defaultSize={40}>
+          <ResizablePanelGroup direction="vertical">
+            <ResizablePanel
+              defaultSize={50}
+              minSize={20}
+              className="p-2 flex flex-col"
+            >
+              <div className="h-10 w-full flex gap-2">
+                <Button
+                  variant={"secondary"}
+                  size={"sm"}
+                  className="min-w-20 justify-between"
+                >
+                  localhost:3000 <X className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="w-full grow rounded-lg bg-foreground"></div>
+            </ResizablePanel>
+
+            <ResizableHandle />
+            {/* terminal section */}
+            <ResizablePanel
+              defaultSize={50}
+              minSize={20}
+              className="p-2 flex flex-col"
+            >
+              <div className="h-10 w-full flex gap-2">
+                <Button
+                  variant={"secondary"}
+                  size={"sm"}
+                  className="min-w-20 justify-between"
+                >
+                  Node <X className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="w-full grow rounded-lg bg-foreground"></div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </ResizablePanel>
       </ResizablePanelGroup>
     </>
