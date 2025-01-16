@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { X } from "lucide-react";
@@ -10,16 +11,17 @@ import {
 import { Editor, OnMount } from "@monaco-editor/react";
 import { useRef } from "react";
 import monaco from "monaco-editor";
+import Sidebar from "./sidebar";
 
 export default function CodeEditor() {
   const editorRef = useRef<null | monaco.editor.IStandaloneCodeEditor>(null);
 
-  const handleEditorMound: OnMount = (editor, monaco) => {
+  const handleEditorMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
   };
   return (
     <>
-      <div className="h-full w-52"></div>
+      <Sidebar />
       <ResizablePanelGroup direction="horizontal">
         {/* code section */}
         <ResizablePanel
@@ -53,7 +55,17 @@ export default function CodeEditor() {
               height={"100%"}
               defaultLanguage="typescript"
               theme="vs-dark"
-              onMount={handleEditorMound}
+              onMount={handleEditorMount}
+              options={{
+                minimap: {
+                  enabled: false,
+                },
+                padding: {
+                  bottom: 4,
+                  top: 4,
+                },
+                scrollBeyondLastLine: false,
+              }}
             />
           </div>
         </ResizablePanel>
